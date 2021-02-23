@@ -61,6 +61,21 @@
             '<(SHARED_INTERMEDIATE_DIR)/sqlite-autoconf-<@(sqlite_version)/sqlite3.c'
           ],
           'action': ['<!(node -p "process.env.npm_config_python || \\"python\\"")','./extract.py','./sqlite-autoconf-<@(sqlite_version).tar.gz','<(SHARED_INTERMEDIATE_DIR)']
+        },
+        {
+          'action_name': 'configure_extensions',
+          'inputs': [
+            './extension-functions.c'
+          ],
+          'outputs': [
+            '<(SHARED_INTERMEDIATE_DIR)/sqlite-autoconf-<@(sqlite_version)/sqlite3.c'
+          ],
+          'action': [
+            '<!(node -p "process.env.npm_config_python || \\"python\\"")',
+            './configure_extensions.py',
+            './extension-functions.c',
+            '<(SHARED_INTERMEDIATE_DIR)/sqlite-autoconf-<@(sqlite_version)/'
+          ]
         }
       ],
       'direct_dependent_settings': {
